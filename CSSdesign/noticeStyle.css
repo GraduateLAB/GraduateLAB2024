@@ -1,3 +1,4 @@
+/* noticeStyle.css */
 body, html {
     margin: 0;
     padding: 0;
@@ -54,7 +55,7 @@ button:hover {
 
 .notice {
     border-bottom: 1px solid #eee;
-    padding: 10px 0;
+    padding: 20px; /* 크게 등록되도록 변경 */
 }
 
 .notice:last-child {
@@ -63,13 +64,13 @@ button:hover {
 
 .notice-title {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 24px; /* 공지사항 제목 크기 변경 */
     color: #333;
 }
 
 .notice-content {
-    margin-top: 5px;
-    font-size: 16px;
+    margin-top: 10px;
+    font-size: 18px; /* 공지사항 내용 크기 변경 */
     color: #555;
 }
 
@@ -102,4 +103,8 @@ button:hover {
 
 .delete-button:hover {
     background-color: #c82333;
+}
+
+button {
+    margin-top: 20px; /* 뒤로가기 버튼 간격 추가 */
 }

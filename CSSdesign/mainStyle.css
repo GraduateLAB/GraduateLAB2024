@@ -36,6 +36,6 @@ body, html {
     border: 1px solid black;
 }
 
-#time-check, #register-goal, #announcements, #goal-completion {
+#time-check, #goal, #announcements, #etc {
     background-color: white;
 }

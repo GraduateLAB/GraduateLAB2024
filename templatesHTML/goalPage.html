@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>목표사항 페이지</title>
+    <link rel="stylesheet" href="../CSSdesign/goalStyle.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h1>목표 등록</h1>
+            <form id="goal-form">
+                <textarea id="goal-title" placeholder="목표 입력" required></textarea>
+                <select id="goal-period">
+                    <option value="daily">일간 목표</option>
+                    <option value="weekly">주간 목표</option>
+                    <option value="monthly">월간 목표</option>
+                </select>
+                <button type="submit">목표 등록</button>
+            </form>
+        </div>
+        <div class="right">
+            <h1>체크리스트</h1>
+            <hr>
+            <div id="daily-goals" class="goal-category">
+                <h2>일간 목표</h2>
+                <ul id="daily-goal-list" class="goal-list"></ul>
+                <hr>
+            </div>
+            <div id="weekly-goals" class="goal-category">
+                <h2>주간 목표</h2>
+                <ul id="weekly-goal-list" class="goal-list"></ul>
+                <hr>
+            </div>
+            <div id="monthly-goals" class="goal-category">
+                <h2>월간 목표</h2>
+                <ul id="monthly-goal-list" class="goal-list"></ul>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <script src="../JavaScript/goalScript.js"></script>
+</body>
+</html>

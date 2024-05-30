@@ -1,28 +1,57 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>시간 측정 페이지</title>
-    <link rel="stylesheet" href="../CSSdesign/timeStyle.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>시간 측정 페이지</title>
+<link rel="stylesheet" href="../CSSdesign/timeStyle.css">
+<script>
+	function startTimer() {
+		// 버튼 클릭 시 현재 시간을 시간 필드에 입력
+		const now = new Date();
+		const hours = now.getHours().toString().padStart(2, '0');
+		const minutes = now.getMinutes().toString().padStart(2, '0');
+		const seconds = now.getSeconds().toString().padStart(2, '0');
+		document.getElementById("startTime").value = hours + ':' + minutes
+				+ ':' + seconds;
+	}
+	function stopTimer() {
+		// 버튼 클릭 시 현재 시간을 시간 필드에 입력
+		const now = new Date();
+		const hours = now.getHours().toString().padStart(2, '0');
+		const minutes = now.getMinutes().toString().padStart(2, '0');
+		const seconds = now.getSeconds().toString().padStart(2, '0');
+		document.getElementById("stopTime").value = hours + ':' + minutes
+				+ ':' + seconds;
+	}
+</script>
 </head>
 <body>
-    <div id="timer-container">
-        <div id="timer-clock">00:00:00</div>
-        <div id="timer-controls">
-            <button id="start-button">시작</button>
-            <button id="stop-button">종료</button>
-        </div>
-        <div id="statistics">
-            <h2>일간 통계</h2>
-            <p id="daily-statistics-text">일간 통계 내용이 여기에 표시됩니다.</p>
-            <h2>주간 통계</h2>
-            <p id="weekly-statistics-text">주간 통계 내용이 여기에 표시됩니다.</p>
-            <h2>월간 통계</h2>
-            <p id="monthly-statistics-text">월간 통계 내용이 여기에 표시됩니다.</p>
-        </div>
-    </div>
+	<div id="timer-container">
+		<div id="timer-clock">00:00:00</div>
+		<div id="timer-controls">
+			<form name="saveTime" action="../JSP/saveTime.jsp" method="post">
+				<button type="button" id="start-button" onclick="startTimer()">시작</button>
+				<label for="startTime">시작 시간:</label> <input type="text"
+					id="startTime" name="startTime" readonly><br>
+				<button type="button" id="stop-button" onclick="stopTimer()">종료</button>
+				<label for="stopTime">종료 시간:</label> <input type="text"
+					id="stopTime" name="stopTime" readonly><br>
+				<button type="submit" id="submit-button">기록</button>
+			</form>
+		</div>
+		<div id="statistics">
+			<h2>일간 통계</h2>
+			<p id="daily-statistics-text">일간 통계 내용이 여기에 표시됩니다.</p>
+			<h2>주간 통계</h2>
+			<p id="weekly-statistics-text">주간 통계 내용이 여기에 표시됩니다.</p>
+			<h2>월간 통계</h2>
+			<p id="monthly-statistics-text">월간 통계 내용이 여기에 표시됩니다.</p>
+		</div>
+	</div>
 
-    <script src="../JavaScript/timeScript.js"></script>
+</body>
+
+<script src="../javaScript/timeScript.j"></script>
 </body>
 </html>

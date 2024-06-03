@@ -1,4 +1,4 @@
-body, html {
+html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -52,6 +52,14 @@ button:hover {
     background-color: #0056b3;
 }
 
+#calendar {
+    margin-top: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}
+
 .right {
     padding: 20px;
 }
@@ -76,6 +84,21 @@ button:hover {
 }
 
 .goal span {
-    font-size: 18px;
+    font-size: 20px; /* Increased font size */
+    margin-right: 10px; /* Add some space between the text and delete button */
     cursor: pointer;
+}
+
+.goal button.delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px; /* Reduced padding */
+    font-size: 12px; /* Reduced font size */
+    cursor: pointer;
+}
+
+.goal button.delete-button:hover {
+    background-color: #cc0000;
 }

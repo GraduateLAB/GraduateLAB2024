@@ -5,42 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>목표사항 페이지</title>
 <link rel="stylesheet" href="../CSSdesign/goalStyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
 </head>
 <body>
-	<div class="container">
-		<div class="left">
-			<h1>목표 등록</h1>
-			<form id="goal-form" action="../JSP/saveGoal.jsp" method="post">
-				<textarea id="goal-title" name="goal-title" placeholder="목표 입력"
-					required></textarea>
-				<select id="goal-period" name="goal-period">
-					<option value="daily">일간 목표</option>
-					<option value="weekly">주간 목표</option>
-					<option value="monthly">월간 목표</option>
-				</select>
-				<button type="submit">목표 등록</button>
-			</form>
-		</div>
-		<div class="right">
-			<h1>체크리스트</h1>
-			<hr>
-			<div id="daily-goals" class="goal-category">
-				<h2>일간 목표</h2>
-				<ul id="daily-goal-list" class="goal-list"></ul>
-				<hr>
-			</div>
-			<div id="weekly-goals" class="goal-category">
-				<h2>주간 목표</h2>
-				<ul id="weekly-goal-list" class="goal-list"></ul>
-				<hr>
-			</div>
-			<div id="monthly-goals" class="goal-category">
-				<h2>월간 목표</h2>
-				<ul id="monthly-goal-list" class="goal-list"></ul>
-				<hr>
-			</div>
-		</div>
-	</div>
-	<script src="../javaScript/goalScript.js"></script>
+    <div class="container">
+        <div class="left">
+            <h1>목표 등록</h1>
+            <form id="goal-form" action="../JSP/saveGoal.jsp" method="post">
+                <textarea id="goal-title" name="goal-title" placeholder="목표 입력" required></textarea>
+                <select id="goal-period" name="goal-period">
+                    <option value="daily">일간 목표</option>
+                    <option value="weekly">주간 목표</option>
+                    <option value="monthly">월간 목표</option>
+                </select>
+                <button type="submit">목표 등록</button>
+            </form>
+            <div id="calendar"></div>
+        </div>
+        <div class="right">
+            <h1>체크리스트</h1>
+            <hr>
+            <div id="daily-goals" class="goal-category">
+                <h2>일간 목표</h2>
+                <ul id="daily-goal-list" class="goal-list"></ul>
+                <hr>
+            </div>
+            <div id="weekly-goals" class="goal-category">
+                <h2>주간 목표</h2>
+                <ul id="weekly-goal-list" class="goal-list"></ul>
+                <hr>
+            </div>
+            <div id="monthly-goals" class="goal-category">
+                <h2>월간 목표</h2>
+                <ul id="monthly-goal-list" class="goal-list"></ul>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="../javaScript/goalScript.js"></script>
+    <script src="../javaScript/calendarScript.js"></script>
 </body>
 </html>
+

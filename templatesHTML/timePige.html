@@ -5,51 +5,123 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>시간 측정 페이지</title>
 <link rel="stylesheet" href="../CSSdesign/timeStyle.css">
-<script>
-    function startTimer() {
-        // 버튼 클릭 시 현재 시간을 시간 필드에 입력
-        const now = new Date();
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        const seconds = now.getSeconds().toString().padStart(2, '0');
-        document.getElementById("startTime").value = hours + ':' + minutes + ':' + seconds;
-        document.getElementById("start-button").disabled = true;
-        document.getElementById("stop-button").disabled = false;
-    }
-
-    function stopTimer() {
-        // 버튼 클릭 시 현재 시간을 시간 필드에 입력
-        const now = new Date();
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        const seconds = now.getSeconds().toString().padStart(2, '0');
-        document.getElementById("stopTime").value = hours + ':' + minutes + ':' + seconds;
-        document.getElementById("start-button").disabled = false;
-        document.getElementById("stop-button").disabled = true;
-    }
-</script>
 </head>
 <body>
-    <div id="timer-container">
-        <div id="timer-clock">00:00:00</div>
-        <div id="timer-controls">
-            <form name="saveTime" action="../JSP/saveTime.jsp" method="post">
-                <button type="button" id="start-button" onclick="startTimer()">시작</button>
-                <label for="startTime">시작 시간:</label> <input type="text" id="startTime" name="startTime" readonly><br>
-                <button type="button" id="stop-button" onclick="stopTimer()">종료</button>
-                <label for="stopTime">종료 시간:</label> <input type="text" id="stopTime" name="stopTime" readonly><br>
-                <button type="submit" id="submit-button">기록</button>
-            </form>
-        </div>
-        <div id="statistics">
-            <h2>일간 통계</h2>
-            <p id="daily-statistics-text">일간 통계 내용이 여기에 표시됩니다.</p>
-            <h2>주간 통계</h2>
-            <p id="weekly-statistics-text">주간 통계 내용이 여기에 표시됩니다.</p>
-            <h2>월간 통계</h2>
-            <p id="monthly-statistics-text">월간 통계 내용이 여기에 표시됩니다.</p>
-        </div>
-    </div>
-    <script src="../javaScript/timeScript.js"></script>
+	<div id="timer-container">
+		<div id="timer-clock">00:00:00</div>
+		<div id="timer-controls">
+			<form name="saveTime" action="../JSP/saveTime.jsp" method="post">
+				<button type="button" id="start-button">시작</button>
+				<label for="startTime">시작 시간:</label> <input type="text"
+					id="startTime" name="startTime" readonly><br>
+				<button type="button" id="stop-button">종료</button>
+				<label for="stopTime">종료 시간:</label> <input type="text"
+					id="stopTime" name="stopTime" readonly><br>
+				<button type="submit" id="submit-button">기록</button>
+			</form>
+		</div>
+		<div id="statistics">
+			<h2>일간 통계</h2>
+			<p id="daily-statistics-text">일간 통계 내용이 여기에 표시됩니다.</p>
+			<h2>주간 통계</h2>
+			<p id="weekly-statistics-text">주간 통계 내용이 여기에 표시됩니다.</p>
+			<h2>월간 통계</h2>
+			<p id="monthly-statistics-text">월간 통계 내용이 여기에 표시됩니다.</p>
+		</div>
+	</div>
+
+	<script>
+		let startTime;
+		let timerInterval;
+		let dailyElapsedTime = 0;
+		let weeklyElapsedTime = 0;
+		let monthlyElapsedTime = 0;
+		const timerClock = document.getElementById('timer-clock');
+		const dailyStatisticsText = document
+				.getElementById('daily-statistics-text');
+		const weeklyStatisticsText = document
+				.getElementById('weekly-statistics-text');
+		const monthlyStatisticsText = document
+				.getElementById('monthly-statistics-text');
+		const startButton = document.getElementById('start-button');
+		const stopButton = document.getElementById('stop-button');
+		const startTimeInput = document.getElementById('startTime');
+		const stopTimeInput = document.getElementById('stopTime');
+
+		startButton.addEventListener('click', startTimer);
+		stopButton.addEventListener('click', stopTimer);
+
+		function startTimer() {
+			const now = new Date();
+			startTime = now.getTime();
+			startTimeInput.value = formatTime(startTime);
+			timerInterval = setInterval(updateTimer, 1000);
+			startButton.disabled = true;
+			stopButton.disabled = false;
+		}
+
+		function stopTimer() {
+			clearInterval(timerInterval);
+			const endTime = new Date().getTime();
+			stopTimeInput.value = formatTime(endTime);
+			updateStatistics();
+			startButton.disabled = false;
+			stopButton.disabled = true;
+			startTime = null;
+			// 타이머 데이터를 서버로 전송
+			sendTimeData(startTimeInput.value, stopTimeInput.value);
+		}
+
+		function updateTimer() {
+			const currentTime = new Date().getTime();
+			const elapsedTime = currentTime - startTime;
+			dailyElapsedTime += elapsedTime;
+			weeklyElapsedTime += elapsedTime;
+			monthlyElapsedTime += elapsedTime;
+			startTime = currentTime;
+			const formattedTime = formatElapsedTime(dailyElapsedTime);
+			timerClock.textContent = formattedTime;
+		}
+
+		function formatElapsedTime(elapsedTime) {
+			const hours = Math.floor((elapsedTime / (1000 * 60 * 60)) % 24);
+			const minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
+			const seconds = Math.floor((elapsedTime / 1000) % 60);
+			return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
+		}
+
+		function formatTime(timestamp) {
+			const date = new Date(timestamp);
+			const hours = date.getHours().toString().padStart(2, '0');
+			const minutes = date.getMinutes().toString().padStart(2, '0');
+			const seconds = date.getSeconds().toString().padStart(2, '0');
+			return hours + ':' + minutes + ':' + seconds;
+		}
+
+		function pad(num) {
+			return (num < 10) ? '0' + num : num;
+		}
+
+		function updateStatistics() {
+			dailyStatisticsText.textContent = `일간 통계: ${formatElapsedTime(dailyElapsedTime)}`;
+			weeklyStatisticsText.textContent = `주간 통계: ${formatElapsedTime(weeklyElapsedTime)}`;
+			monthlyStatisticsText.textContent = `월간 통계: ${formatElapsedTime(monthlyElapsedTime)}`;
+		}
+
+		function sendTimeData(startTime, endTime) {
+			const xhr = new XMLHttpRequest();
+			const url = '../JSP/saveTime.jsp';
+			xhr.open('POST', url, true);
+			xhr.setRequestHeader('Content-Type',
+					'application/x-www-form-urlencoded');
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					console.log(xhr.responseText);
+				}
+			};
+			xhr.send(`startTime=${startTime}&endTime=${endTime}`);
+		}
+	</script>
+
 </body>
 </html>

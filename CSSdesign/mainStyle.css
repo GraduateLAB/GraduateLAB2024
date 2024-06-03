@@ -1,4 +1,4 @@
-body, html {
+html, body {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -22,20 +22,55 @@ body, html {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
+    gap: 20px;
 }
 
 .grid-item {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: white;
     font-size: 2em;
     cursor: pointer;
     border: 1px solid black;
+    text-decoration: none;
+    position: relative;
 }
 
-#time-check, #goal, #announcements, #etc {
-    background-color: white;
+#time-check {
+    background-image: url('../image/calendar.avif');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+#goal {
+    background-image: url('../image/checklist.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+#announcements {
+    background-image: url('../image/announcements.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+#etc {
+    background-color: #1ca312;
+}
+
+.grid-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
 }

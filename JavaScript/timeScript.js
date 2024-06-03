@@ -1,32 +1,26 @@
-// timeScript.js
-
 let startTime;
 let timerInterval;
 let dailyElapsedTime = 0;
 let weeklyElapsedTime = 0;
 let monthlyElapsedTime = 0;
+
 const timerClock = document.getElementById('timer-clock');
 const dailyStatisticsText = document.getElementById('daily-statistics-text');
 const weeklyStatisticsText = document.getElementById('weekly-statistics-text');
 const monthlyStatisticsText = document.getElementById('monthly-statistics-text');
-const startButton = document.getElementById('start-button');
-const stopButton = document.getElementById('stop-button');
-
-startButton.addEventListener('click', startTimer);
-stopButton.addEventListener('click', stopTimer);
 
 function startTimer() {
     startTime = new Date().getTime();
     timerInterval = setInterval(updateTimer, 1000);
-    startButton.disabled = true;
-    stopButton.disabled = false;
+    document.getElementById("start-button").disabled = true;
+    document.getElementById("stop-button").disabled = false;
 }
 
 function stopTimer() {
     clearInterval(timerInterval);
     updateStatistics();
-    startButton.disabled = false;
-    stopButton.disabled = true;
+    document.getElementById("start-button").disabled = false;
+    document.getElementById("stop-button").disabled = true;
     // 타이머 중지 시 startTime 재설정
     startTime = null;
 }
